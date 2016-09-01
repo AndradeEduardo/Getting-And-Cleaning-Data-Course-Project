@@ -3,10 +3,10 @@
 This repository contains the following files:
 
 1. README.md
-This is the file you are reading right now. It contains the description of this repository.
+  * This is the file you are reading right now. It contains the description of this repository.
 
 2. CodeBook.md
-This file describes the variables, the data, and any transformations or work that were performed to clean up the data.
+  * This file describes the variables, the data, and any transformations or work that were performed to clean up the data.
 
 3. run_analysis.R
 This file is the R script that performs all data acquiring, cleaning, transforming and recording.
