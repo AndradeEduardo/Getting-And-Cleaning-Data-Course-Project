@@ -9,8 +9,8 @@ This repository contains the following files:
   * This file describes the variables, the data, and any transformations or work that were performed to clean up the data.
 
 3. run_analysis.R
-&nbsp;&nbsp;&nbsp;&nbsp;This file is the R script that performs all data acquiring, cleaning, transforming and recording.
-&nbsp;&nbsp;&nbsp;&nbsp;The script within it has the following conventions:
+  * This file is the R script that performs all data acquiring, cleaning, transforming and recording.
+    + The script within it has the following conventions:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Comments starting with one # indicates a comment on the code of the line below it
 
