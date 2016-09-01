@@ -12,8 +12,8 @@ This repository contains the following files:
 </BR>&nbsp;&nbsp;&nbsp;&nbsp;This file is the R script that performs all data acquiring, cleaning, transforming and recording.
 &nbsp;&nbsp;&nbsp;&nbsp;The script within it has the following conventions:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Comments starting with one # indicates a comment on the code of the line below it
+    * Comments starting with one # indicates a comment on the code of the line below it
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Comment starting with three # indicates a comment regarding the logics of the code below it in order to fulfill a requirement of the project. The requirement being addressed is explicitly indicated by its number.
+    * Comment starting with three # indicates a comment regarding the logics of the code below it in order to fulfill a requirement of the project. The requirement being addressed is explicitly indicated by its number.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Some commands, like #View(targetActivitiesData) and #dim(targetActivitiesData) were left commented in order to help evaluate the correctness of the operations previously performed on code.
