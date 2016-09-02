@@ -6,7 +6,7 @@ This repository contains the following files:
   * This is the file you are reading right now. It contains the description of this repository.
 
 2. CodeBook.md
-  * This file describes the variables, the data, and any transformations or work that were performed to clean up the data.
+  * This file describes the variables, the data, transformations or work that were performed to clean up the data and generate the final data set.
 
 3. run_analysis.R
 </BR>&nbsp;&nbsp;&nbsp;&nbsp;This file is the R script that performs all data acquiring, cleaning, transforming and recording. The script within it has the following conventions:
