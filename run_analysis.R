@@ -11,7 +11,7 @@ activitiesLabelsFile <- "activity_labels.txt"
 measuresTitlesFile <- "features.txt"
 # activitiesLabels has the correlation between activities IDs and activities Labels
 activitiesLabels <- read.table(activitiesLabelsFile)
-#View(activitiesLabels)
+# View(activitiesLabels)
 # measuresTitles contains the descriptive name of the measures taken on the experiment
 measuresTitles <- read.table(measuresTitlesFile)
 vecMeasuresTitles <- measuresTitles[,2]
@@ -45,7 +45,12 @@ activitiesSubjects <- read.table(
 #View(activitiesSubjects)
 #dim(activitiesSubjects)
 
-################# read test data ################
+################# Test data reading ################
+# The readings are done in the exactly same order
+# for all files and put in the same order on respectives
+# data frames. This guarantees that the correlation between
+# data, codes and subjects will be kept the same as
+# it was in source files
 testFolder <- "./test"
 testFile <- "X_test.txt"
 testActivitiesFile <- "y_test.txt"
@@ -60,7 +65,7 @@ activitiesData <- rbind(
     paste(testFolder, testFile, sep = "/")
     )
   )
-dim(activitiesData)
+#dim(activitiesData)
 
 ### Reads test activities code and merges it to the tail
 ### of activitiesCode, which already have training
@@ -71,7 +76,7 @@ activitiesCodes <- rbind(
     paste(testFolder, testActivitiesFile, sep = "/")
   )
 )
-dim(activitiesCodes)
+# dim(activitiesCodes)
 
 ### Reads test subjects and merges it to the tail
 ### of activitiesSubjects, which already contains
@@ -82,15 +87,18 @@ activitiesSubjects <- rbind(
     paste(testFolder, testSubjetcsFile, sep = "/")
   )
 )
-colnames(activitiesSubjects) <- c("subjectID")
-dim(activitiesSubjects)
-#View(activitiesSubjects)
 
-# Set the name of columns to the titles of the measures.
-# With this, variable names of the data set will be
-# appropriately set. Down the script variable names will be
-# set even clearer for the final dataframe and compliance
-# with requirement 4.
+
+### properly naming subject column
+colnames(activitiesSubjects) <- c("subjectID")
+# dim(activitiesSubjects)
+# View(activitiesSubjects)
+
+### Set the name of columns to the titles of the measures.
+### With this, variable names of the data set will be
+### appropriately set. Down the script variable names will be
+### set even clearer for the final dataframe and compliance
+### with requirement 4.
 colnames(activitiesData) <- measuresTitles[,2]
 
 
@@ -106,9 +114,9 @@ stdIndices <- grep("std", measuresTitles[,2])
 targetMeasuresIndices <- c(meanIndices, stdIndices)
 
 targetActivitiesData <- activitiesData[,targetMeasuresIndices]
-View(targetActivitiesData)
-dim(targetActivitiesData)
-object.size(targetActivitiesData)
+#View(targetActivitiesData)
+#dim(targetActivitiesData)
+#object.size(targetActivitiesData)
 
 # dispose activitiesData in order to free memory up
 rm(activitiesData)
@@ -126,10 +134,8 @@ activityLabel <- activitiesLabels[activitiesCodes]
 ### with requirement 3
 targetActivitiesData <-cbind(activityLabel, targetActivitiesData)
 
-#targetActivitiesData$activityName <- activitiesLabels[activitiesCodes]
-
-View(targetActivitiesData)
-dim(targetActivitiesData)
+#View(targetActivitiesData)
+#dim(targetActivitiesData)
 
 ### Renaming variables in order to make them clearer,
 ### thus being compliant with with requirement 4
@@ -140,33 +146,34 @@ varNames <- gsub("mean", "Mean", varNames)
 varNames <- gsub("std", "Std", varNames)
 names(targetActivitiesData) <- varNames
 
-View(targetActivitiesData)
+#View(targetActivitiesData)
 
 ### Using dplyr package to agregate data
 library(dplyr)
-dim(targetActivitiesData)
-dim(activitiesSubjects)
+
 targetActivitiesData <- cbind(activitiesSubjects, targetActivitiesData)
-tblExperiment
-View(tblExperiment)
-dim(tblExperiment)
+#View(targetActivitiesData)
+#dim(targetActivitiesData)
 
-
-### Grouping the experiment by subject and by activity
+### Grouping the experiment by subject and by activity in order to
+### fulfill requirement 5
 bySubjectActivity <- group_by(targetActivitiesData, subjectID, activityLabel)
 
 ### Calculating the mean of the 79 variables that represent
 ### the measurements on the mean and standard deviation for each measurement,
 ### thus generating the data set specified on requirement 5
-meanSubjectActivity <- summarise_each(bySubjectActivity, funs(mean))
+meansBySubjectActivity <- summarise_each(bySubjectActivity, funs(mean))
+#View(meansBySubjectActivity)
 
-### Updating variable names to represent what they really are, thus
-### making the final data fram compliant with requirement 4
-varNames <- names(meanSubjectActivity)[3:length(names(meanSubjectActivity))]
-names(meanSubjectActivity)[3:length(names(meanSubjectActivity))] <-
+### Updating measures variable names to represent what they really are, thus
+### making the final data compliant with requirement 4
+varNames <- names(meansBySubjectActivity)[3:length(names(meansBySubjectActivity))]
+names(meansBySubjectActivity)[3:length(names(meansBySubjectActivity))] <-
   paste("meanOf", varNames, sep = "_")
+#View(meansBySubjectActivity)
 
-# View(meanSubjectActivity)
+### Writing the dataset into a txt file in order to attend requirement 5
+write.table(meansBySubjectActivity, file = "MeasuresMeansBySubjectAndActivity.txt", row.names = FALSE)
 
 
 
